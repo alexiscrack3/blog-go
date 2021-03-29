@@ -7,6 +7,8 @@ import (
     "strconv"
 )
 
+const NOT_FOUND = -1
+
 type PostsRepository struct {
     Posts []models.Post
 }
@@ -54,4 +56,33 @@ func (postsRepository *PostsRepository) CreatePost(reqBody map[string]string) (*
     }
     postsRepository.Posts = append(postsRepository.Posts, p)
     return &p, nil
+}
+
+func (postsRepository *PostsRepository) DeletePostByID(id int) error {
+    if id > 0 {
+        posts := postsRepository.Posts
+        index := getIndex(posts, id)
+        if (index == NOT_FOUND) {
+            return errors.New("Post was not found")
+        } else {
+            postsRepository.Posts = removePostByIndex(posts, index)
+            return nil
+        }
+    } else {
+        return errors.New("PostID should be greater than zero")
+    }
+}
+
+func getIndex(posts []models.Post, postID int) int {
+    for i := 0; i < len(posts); i++ {
+        post := posts[i]
+        if post.ID == postID {
+            return i
+        }
+    }
+    return NOT_FOUND
+}
+
+func removePostByIndex(posts []models.Post, index int) []models.Post {
+    return append(posts[:index], posts[index + 1:]...)
 }

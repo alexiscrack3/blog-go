@@ -62,7 +62,7 @@ func (postsRepository *PostsRepository) DeletePostByID(id int) error {
     if id > 0 {
         posts := postsRepository.Posts
         index := getIndex(posts, id)
-        if (index == NOT_FOUND) {
+        if index == NOT_FOUND {
             return errors.New("Post was not found")
         } else {
             postsRepository.Posts = removePostByIndex(posts, index)

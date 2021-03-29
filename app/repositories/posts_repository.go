@@ -3,7 +3,6 @@ package repositories
 import (
     "errors"
     "github.com/alexiscrack3/blog-go/app/models"
-    "syreclabs.com/go/faker"
     "math/rand"
 )
 
@@ -14,23 +13,25 @@ type PostsRepository struct {
 }
 
 func NewPostsRepository() *PostsRepository {
-    var posts []models.Post
-    p := models.Post {
+    postA := models.Post {
         ID: 1,
-        Title: "Go!",
+        Title: "Post A",
         Body: nil,
         UserID: 1,
     }
-    posts = append(posts, p)
-    for i := 2; i < 4; i++ {
-        p = models.Post {
-            ID: i,
-            Title: faker.Commerce().ProductName(),
-            Body: nil,
-            UserID: 1 + rand.Intn(100),
-        }
-        posts = append(posts, p)
+    postB := models.Post {
+        ID: 2,
+        Title: "Post B",
+        Body: nil,
+        UserID: 2,
     }
+    postC := models.Post {
+        ID: 3,
+        Title: "Post C",
+        Body: nil,
+        UserID: 1,
+    }
+    posts := []models.Post { postA, postB, postC }
     return &PostsRepository {
         Posts: posts,
     }

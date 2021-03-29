@@ -89,5 +89,5 @@ func Test_DeletePostByID_ShouldReturnError_WhenIdIsNotFound(t *testing.T) {
 func Test_GetPostsByUserID_ShouldReturnPosts(t *testing.T) {
     testObject := NewPostsRepository()
     posts := testObject.GetPostsByUserID(1)
-    assert.Equal(t, len(posts), 1, "there should be 1 post")
+    assert.Equal(t, len(posts), 2, "there should be 2 posts")
 }

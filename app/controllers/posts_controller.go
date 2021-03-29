@@ -36,6 +36,7 @@ func (postsController PostsController) GetPostById(w http.ResponseWriter, r *htt
         post, err := postsController.PostsRepository.GetPostById(id)
         if err != nil {
             log.Println(err)
+            w.WriteHeader(http.StatusNoContent)
             json.NewEncoder(w).Encode(nil)
         } else {
             json.NewEncoder(w).Encode(post)
@@ -46,13 +47,12 @@ func (postsController PostsController) GetPostById(w http.ResponseWriter, r *htt
 func (postsController PostsController) CreatePost(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     var reqBody map[string]string
-    log.Println(reqBody)
-
     err := json.NewDecoder(r.Body).Decode(&reqBody)
     if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
+    log.Println(reqBody)
 
     post, err := postsController.PostsRepository.CreatePost(reqBody)
     if err != nil {

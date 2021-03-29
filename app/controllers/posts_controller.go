@@ -63,6 +63,31 @@ func (postsController PostsController) CreatePost(w http.ResponseWriter, r *http
     }
 }
 
+func (postsController PostsController) UpdatePost(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    params := mux.Vars(r)
+    log.Printf("Post ID = %s\n", params["id"])
+
+    id, err := strconv.Atoi(params["id"])
+    if err != nil {
+        log.Println("PostID is not a string")
+    } else {
+        var reqBody map[string]string
+        err := json.NewDecoder(r.Body).Decode(&reqBody)
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusBadRequest)
+            return
+        }
+
+        post, err := postsController.PostsRepository.UpdatePostByID(id, reqBody)
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        } else {
+            json.NewEncoder(w).Encode(post)
+        }
+    }
+}
+
 func (postsController PostsController) DeletePost(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     params := mux.Vars(r)

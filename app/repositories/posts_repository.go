@@ -58,6 +58,25 @@ func (postsRepository *PostsRepository) CreatePost(reqBody map[string]string) (*
     return &p, nil
 }
 
+func (postsRepository *PostsRepository) UpdatePostByID(id int, reqBody map[string]string) (*models.Post, error) {
+    if id > 0 {
+        posts := postsRepository.Posts
+        index := getIndex(posts, id)
+        if index == NOT_FOUND {
+            return nil, errors.New("Post was not found")
+        } else {
+            post := postsRepository.Posts[index]
+            body := reqBody["body"]
+            post.Title = reqBody["title"]
+            post.Body = &body
+            postsRepository.Posts[index] = post
+            return &post, nil
+        }
+    } else {
+        return nil, errors.New("PostID should be greater than zero")
+    }
+}
+
 func (postsRepository *PostsRepository) DeletePostByID(id int) error {
     if id > 0 {
         posts := postsRepository.Posts

@@ -16,6 +16,7 @@ func main() {
     router.HandleFunc("/posts", postsControllers.GetPosts).Methods("GET")
     router.HandleFunc("/posts/{id}", postsControllers.GetPostByID).Methods("GET")
     router.HandleFunc("/posts", postsControllers.CreatePost).Methods("POST")
+    router.HandleFunc("/posts/{id}", postsControllers.UpdatePost).Methods("PUT")
     router.HandleFunc("/posts/{id}", postsControllers.DeletePost).Methods("DELETE")
 
     log.Fatal(http.ListenAndServe(":3000", router))

@@ -55,7 +55,8 @@ func (postsController PostsController) CreatePost(w http.ResponseWriter, r *http
 
     post, err := postsController.PostsRepository.CreatePost(reqBody)
     if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
+        log.Println(err)
+        w.WriteHeader(http.StatusInternalServerError)
     } else {
         w.WriteHeader(http.StatusCreated)
         json.NewEncoder(w).Encode(post)
@@ -80,7 +81,8 @@ func (postsController PostsController) UpdatePost(w http.ResponseWriter, r *http
 
         post, err := postsController.PostsRepository.UpdatePostByID(id, reqBody)
         if err != nil {
-            http.Error(w, err.Error(), http.StatusInternalServerError)
+            log.Println(err)
+            w.WriteHeader(http.StatusInternalServerError)
         } else {
             json.NewEncoder(w).Encode(post)
         }

@@ -25,7 +25,7 @@ func (postsController PostsController) GetPosts(w http.ResponseWriter, r *http.R
     json.NewEncoder(w).Encode(posts)
 }
 
-func (postsController PostsController) GetPostById(w http.ResponseWriter, r *http.Request) {
+func (postsController PostsController) GetPostByID(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     params := mux.Vars(r)
     log.Printf("Post ID = %s\n", params["id"])
@@ -33,7 +33,7 @@ func (postsController PostsController) GetPostById(w http.ResponseWriter, r *htt
     if err != nil {
         log.Println("PostID is not a string")
     } else {
-        post, err := postsController.PostsRepository.GetPostById(id)
+        post, err := postsController.PostsRepository.GetPostByID(id)
         if err != nil {
             log.Println(err)
             w.WriteHeader(http.StatusNoContent)

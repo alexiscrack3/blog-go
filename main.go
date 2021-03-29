@@ -14,7 +14,7 @@ func main() {
     postsRepository := repositories.NewPostsRepository()
     postsControllers := controllers.NewPostsController(postsRepository)
     router.HandleFunc("/posts", postsControllers.GetPosts).Methods("GET")
-    router.HandleFunc("/posts/{id}", postsControllers.GetPostById).Methods("GET")
+    router.HandleFunc("/posts/{id}", postsControllers.GetPostByID).Methods("GET")
     router.HandleFunc("/posts", postsControllers.CreatePost).Methods("POST")
 
     log.Fatal(http.ListenAndServe(":3000", router))

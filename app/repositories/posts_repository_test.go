@@ -13,7 +13,7 @@ func Test_GetPosts_ShouldReturn_Posts(t *testing.T) {
 
 func Test_GetPostByID_ShouldReturn_Post(t *testing.T) {
     testObject := NewPostsRepository()
-    post, _ := testObject.GetPostById(1)
+    post, _ := testObject.GetPostByID(1)
     assert.NotNil(t, post, "post should not be nil")
 }
 

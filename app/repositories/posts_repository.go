@@ -32,7 +32,7 @@ func (postsRepository PostsRepository) GetPosts() []models.Post {
     return posts
 }
 
-func (postsRepository PostsRepository) GetPostById(id int) (*models.Post, error) {
+func (postsRepository PostsRepository) GetPostByID(id int) (*models.Post, error) {
     for _, post := range postsRepository.Posts {
         if post.ID == id {
             return &post, nil

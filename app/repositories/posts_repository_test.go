@@ -56,7 +56,7 @@ func Test_UpatePostByID_ShouldReturnError_WhenIdIsNotFound(t *testing.T) {
     assert.NotNil(t, err, "err is nil")
 }
 
-func Test_DeletePost_ShouldDeletePost(t *testing.T) {
+func Test_DeletePostByID_ShouldDeletePost(t *testing.T) {
     testObject := NewPostsRepository()
     err := testObject.DeletePostByID(2)
     posts := testObject.GetPosts()
@@ -64,13 +64,13 @@ func Test_DeletePost_ShouldDeletePost(t *testing.T) {
     assert.Nil(t, err, "err is not nil")
 }
 
-func Test_DeletePost_ShouldReturnError_WhenIdIsLessThanOrEqualToZero(t *testing.T) {
+func Test_DeletePostByID_ShouldReturnError_WhenIdIsLessThanOrEqualToZero(t *testing.T) {
     testObject := NewPostsRepository()
     err := testObject.DeletePostByID(-1)
     assert.NotNil(t, err, "err is nil")
 }
 
-func Test_DeletePost_ShouldReturnError_WhenIdIsNotFound(t *testing.T) {
+func Test_DeletePostByID_ShouldReturnError_WhenIdIsNotFound(t *testing.T) {
     testObject := NewPostsRepository()
     err := testObject.DeletePostByID(100)
     assert.NotNil(t, err, "err is nil")

@@ -56,7 +56,7 @@ func (postsController PostsController) CreatePost(w http.ResponseWriter, r *http
 
     post, err := postsController.PostsRepository.CreatePost(reqBody)
     if err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
+        http.Error(w, err.Error(), http.StatusInternalServerError)
     } else {
         w.WriteHeader(http.StatusCreated)
         json.NewEncoder(w).Encode(post)

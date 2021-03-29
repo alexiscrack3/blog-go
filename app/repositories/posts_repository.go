@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"errors"
 	"github.com/alexiscrack3/blog-go/app/models"
 	"math/rand"
 	"strconv"
@@ -29,4 +30,13 @@ func NewPostsRepository() *PostsRepository {
 func (postsRepository PostsRepository) GetPosts() []models.Post {
 	posts := postsRepository.Posts
 	return posts
+}
+
+func (postsRepository PostsRepository) GetPostById(id int) (*models.Post, error) {
+	for _, post := range postsRepository.Posts {
+		if post.ID == id {
+			return &post, nil
+		}
+	}
+	return nil, errors.New("Post was not found")
 }

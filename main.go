@@ -1,20 +1,20 @@
 package main
 
 import (
-	"github.com/alexiscrack3/blog-go/app/controllers"
-	"github.com/alexiscrack3/blog-go/app/repositories"
-	"github.com/gorilla/mux"
-	"log"
-	"net/http"
+    "github.com/alexiscrack3/blog-go/app/controllers"
+    "github.com/alexiscrack3/blog-go/app/repositories"
+    "github.com/gorilla/mux"
+    "log"
+    "net/http"
 )
 
 func main() {
-	router := mux.NewRouter()
+    router := mux.NewRouter()
 
-	postsRepository := repositories.NewPostsRepository()
-	postsControllers := controllers.NewPostsController(postsRepository)
-	router.HandleFunc("/posts", postsControllers.GetPosts).Methods("GET")
-	router.HandleFunc("/posts/{id}", postsControllers.GetPostById).Methods("GET")
+    postsRepository := repositories.NewPostsRepository()
+    postsControllers := controllers.NewPostsController(postsRepository)
+    router.HandleFunc("/posts", postsControllers.GetPosts).Methods("GET")
+    router.HandleFunc("/posts/{id}", postsControllers.GetPostById).Methods("GET")
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+    log.Fatal(http.ListenAndServe(":3000", router))
 }

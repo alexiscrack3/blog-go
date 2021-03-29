@@ -28,6 +28,16 @@ func Test_CreatePost_ShouldCreatePost(t *testing.T) {
     assert.Nil(t, err, "err is not nil")
 }
 
+func Test_CreatePost_ShouldNotBeCreated_WhenTitleIsEmpty(t *testing.T) {
+    testObject := NewPostsRepository()
+    reqBody := map[string]string {
+        "title": "",
+        "body": "lorem ipsum",
+    }
+    _, err := testObject.CreatePost(reqBody)
+    assert.NotNil(t, err, "err is nil")
+}
+
 func Test_UpatePostByID_ShouldUpdatePost(t *testing.T) {
     testObject := NewPostsRepository()
     title := "new"

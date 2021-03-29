@@ -48,14 +48,18 @@ func (postsRepository *PostsRepository) CreatePost(reqBody map[string]string) (*
     newID := postsRepository.Posts[length - 1].ID + 1
     title := reqBody["title"]
     body := reqBody["body"]
-    p := models.Post {
-        ID: newID,
-        Title: title,
-        Body: &body,
-        UserID: 1 + rand.Intn(100),
+    if len(title) > 0 {
+        p := models.Post {
+            ID: newID,
+            Title: title,
+            Body: &body,
+            UserID: 1 + rand.Intn(100),
+        }
+        postsRepository.Posts = append(postsRepository.Posts, p)
+        return &p, nil
+    } else {
+        return nil, errors.New("One of the fields is empty")
     }
-    postsRepository.Posts = append(postsRepository.Posts, p)
-    return &p, nil
 }
 
 func (postsRepository *PostsRepository) UpdatePostByID(id int, reqBody map[string]string) (*models.Post, error) {

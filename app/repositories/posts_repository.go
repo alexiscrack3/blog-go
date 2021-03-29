@@ -96,6 +96,16 @@ func (postsRepository *PostsRepository) DeletePostByID(id int) error {
     }
 }
 
+func (postsRepository PostsRepository) GetPostsByUserID(userID int) []models.Post {
+    posts := []models.Post{}
+    for _, post := range postsRepository.Posts {
+        if post.UserID == userID {
+            posts = append(posts, post)
+        }
+    }
+    return posts
+}
+
 func getIndex(posts []models.Post, postID int) int {
     for i := 0; i < len(posts); i++ {
         post := posts[i]

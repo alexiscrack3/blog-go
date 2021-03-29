@@ -85,3 +85,9 @@ func Test_DeletePostByID_ShouldReturnError_WhenIdIsNotFound(t *testing.T) {
     err := testObject.DeletePostByID(100)
     assert.NotNil(t, err, "err is nil")
 }
+
+func Test_GetPostsByUserID_ShouldReturnPosts(t *testing.T) {
+    testObject := NewPostsRepository()
+    posts := testObject.GetPostsByUserID(1)
+    assert.Equal(t, len(posts), 1, "there should be 1 post")
+}

@@ -19,5 +19,8 @@ func main() {
     router.HandleFunc("/posts/{id}", postsControllers.UpdatePost).Methods("PUT")
     router.HandleFunc("/posts/{id}", postsControllers.DeletePost).Methods("DELETE")
 
+    usersController := controllers.NewUsersController(postsRepository)
+    router.HandleFunc("/users/{id}/posts", usersController.GetPosts).Methods("GET")
+
     log.Fatal(http.ListenAndServe(":3000", router))
 }

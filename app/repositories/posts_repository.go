@@ -3,8 +3,8 @@ package repositories
 import (
     "errors"
     "github.com/alexiscrack3/blog-go/app/models"
+    "syreclabs.com/go/faker"
     "math/rand"
-    "strconv"
 )
 
 const NOT_FOUND = -1
@@ -15,10 +15,17 @@ type PostsRepository struct {
 
 func NewPostsRepository() *PostsRepository {
     var posts []models.Post
-    for i := 1; i < 4; i++ {
-        p := models.Post {
+    p := models.Post {
+        ID: 1,
+        Title: "Go!",
+        Body: nil,
+        UserID: 1,
+    }
+    posts = append(posts, p)
+    for i := 2; i < 4; i++ {
+        p = models.Post {
             ID: i,
-            Title: "title" + strconv.Itoa(i),
+            Title: faker.Commerce().ProductName(),
             Body: nil,
             UserID: 1 + rand.Intn(100),
         }

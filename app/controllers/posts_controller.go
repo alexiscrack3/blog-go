@@ -36,8 +36,7 @@ func (postsController PostsController) GetPostByID(w http.ResponseWriter, r *htt
         post, err := postsController.PostsRepository.GetPostByID(id)
         if err != nil {
             log.Println(err)
-            w.WriteHeader(http.StatusNoContent)
-            json.NewEncoder(w).Encode(nil)
+            w.WriteHeader(http.StatusNotFound)
         } else {
             json.NewEncoder(w).Encode(post)
         }

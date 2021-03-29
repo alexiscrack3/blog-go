@@ -42,3 +42,23 @@ func (postsController PostsController) GetPostById(w http.ResponseWriter, r *htt
         }
     }
 }
+
+func (postsController PostsController) CreatePost(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    var reqBody map[string]string
+    log.Println(reqBody)
+
+    err := json.NewDecoder(r.Body).Decode(&reqBody)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
+
+    post, err := postsController.PostsRepository.CreatePost(reqBody)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+    } else {
+        w.WriteHeader(http.StatusCreated)
+        json.NewEncoder(w).Encode(post)
+    }
+}

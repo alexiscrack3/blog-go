@@ -14,5 +14,16 @@ func Test_GetPosts_ShouldReturn_Posts(t *testing.T) {
 func Test_GetPostByID_ShouldReturn_Post(t *testing.T) {
     testObject := NewPostsRepository()
     post, _ := testObject.GetPostById(1)
-    assert.NotNil(t, post, "there should be 1 post")
+    assert.NotNil(t, post, "post should not be nil")
+}
+
+func Test_CreatePost_ShouldCreate_Post(t *testing.T) {
+    testObject := NewPostsRepository()
+    reqBody := map[string]string {
+        "title": "new",
+        "body": "lorem ipsum",
+    }
+    post, err := testObject.CreatePost(reqBody)
+    assert.NotNil(t, post, "post should not be nil")
+    assert.Nil(t, err, "err is not nil")
 }
